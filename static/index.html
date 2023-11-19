@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label, input {
+            margin: 10px 0;
+        }
+
+        label {
+            text-align: center;
+        }
+
+        input {
+            padding: 5px;
+        }
+
+        button {
+            margin-top: 2px;
+            padding: 7px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Log Search</h1>
+    
+    <form action="/search" method="post">
+        <label for="filter_field">Filter Field:&nbsp;</label>
+        <input type="text" name="filter_field" required>&nbsp;&nbsp;&nbsp;
+        <label for="filter_value">Filter Value: &nbsp;</label>
+        <input type="text" name="filter_value" required>&nbsp;&nbsp;&nbsp;
+        <button type="submit">Search</button>
+    </form>
+    {% if result %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Level</th>
+                    <th>Message</th>
+                    <th>Resource ID</th>
+                    <th>Timestamp</th>
+                    <th>Trace ID</th>
+                    <th>Span ID</th>
+                    <th>Commit</th>
+                    <th>Parent Resource ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in result %}
+                    <tr>
+                        <td>{{ log.level }}</td>
+                        <td>{{ log.message }}</td>
+                        <td>{{ log.resourceId }}</td>
+                        <td>{{ log.timestamp }}</td>
+                        <td>{{ log.traceId }}</td>
+                        <td>{{ log.spanId }}</td>
+                        <td>{{ log.commit }}</td>
+                        <td>{{ log.metadata.parentResourceId }}</td>
+                        <!-- Add more cells as needed -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+    No logs found!
+    {% endif %}
+</body>
+</html>
