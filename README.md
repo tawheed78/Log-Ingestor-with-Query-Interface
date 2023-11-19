@@ -172,6 +172,25 @@ The Log Ingestor uses FastAPI to ingest logs via POST request. The Logs are sent
 	[✅] Received: {'level': 'error', 'message': 'Failed to connect to DB', 'resourceId': 'server-1234', 'timestamp': 1694764800, 'traceId': 'abc-xyz-123', 'spanId': 'span-456', 'commit': '5e5342f', 'metadata': {'parentResourceId': 'server-0987'}}
    ```
 3. At the same time the log has been added to the Mongodb Database.
+4. Request can also be sent via 
+```json
+curl -X 'POST' \
+  'http://127.0.0.1:3000/ingest/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+	"level": "error",
+	"message": "Failed to connect to DB",
+    "resourceId": "server-1234",
+	"timestamp": "2023-09-15T08:00:00Z",
+	"traceId": "abc-xyz-123",
+    "spanId": "span-456",
+    "commit": "5e5342f",
+    "metadata": {
+        "parentResourceId": "server-0987"
+    }
+}'
+```
 
 
 ### Query Interface
