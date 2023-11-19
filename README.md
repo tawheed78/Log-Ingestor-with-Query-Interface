@@ -70,9 +70,9 @@
       </ul>
     </li>
     <li><a href="#Usage">Usage</a></li>
-    <li><a href="#Features Implemented">Roadmap</a></li>
-	  <li><a href="#Evaluation Criteria Met">Roadmap</a></li>
-    <li><a href="#Identified Issue">Contributing</a></li>
+    <li><a href="#features-implemented">Features Implemented</a></li>
+	  <li><a href="#evaluation-criteria-met">Evaluation Criteria Met</a></li>
+    <li><a href="#identified-issue">Identified Issues</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -182,7 +182,10 @@ The Query Interface uses HTML template to take the input values, "Filter Field" 
 2. Enter the Filter field and the Filter value and click Search.
 3. A Table will get populated below with the respective logs.
 
+### Points to be Noted
+1. Since I have used cloud MongoDB and cloud RabbitMQ, I have provided the connection string and url of those instances in the .env file for testing purposes so that setting that up doesn't create any problems.
 
+   
 ## Features Implemented
 Log Ingestor:
 
@@ -212,6 +215,11 @@ Advanced Features (Bonus):
 5. **Advanced Features**: Implemented bonus functionalities.
 6. **Readability**: Maintained a clean and structured codebase.
 
+
+## Identified Issues
+- **Real-time Capabilities**: Enhance real-time log ingestion and search.
+- **Sharding**: The Mongodb Atlas Free cluster does not provide sharding feature, although the paid cluster provides, hence sharding the database is achievable.
+- **Security**: Proving role based access to query the database.
 
 <!-- LICENSE -->
 ## License
