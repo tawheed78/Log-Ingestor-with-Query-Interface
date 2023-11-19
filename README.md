@@ -254,7 +254,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - [@linked_profile](https://www.linkedin.com/in/tawheedchilwan78/) - tawheed.chilwan55@gmail.com
 
-Project Link: ([https://github.com/your_username/repo_name](https://github.com/dyte-submissions/november-2023-hiring-tawheed78))
+Project Link: ([@github](https://github.com/dyte-submissions/november-2023-hiring-tawheed78))
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
