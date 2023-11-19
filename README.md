@@ -69,9 +69,10 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#Features Implemented">Usage</a></li>
-    <li><a href="#Identified Issues">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#Usage">Usage</a></li>
+    <li><a href="#Features Implemented">Roadmap</a></li>
+	  <li><a href="#Evaluation Criteria Met">Roadmap</a></li>
+    <li><a href="#Identified Issue">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -158,9 +159,9 @@ To setup this project the below mwntioned steps need to be followed.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-### Usage
+## Usage
 
-## Log Ingestor
+### Log Ingestor
 
 The Log Ingestor uses FastAPI to ingest logs via POST request. The Logs are sent to RabbitMQ and then processed from there one by one and added into Mongodb database.
 
@@ -173,13 +174,43 @@ The Log Ingestor uses FastAPI to ingest logs via POST request. The Logs are sent
 3. At the same time the log has been added to the Mongodb Database.
 
 
-## Query Interface
+### Query Interface
 
 The Query Interface uses HTML template to take the input values, "Filter Field" and "Filter Value". On submitting the response the data is fetched from the Mongodb Database and presented in a table just below the input form. Additionally indexing has been done on the fields "level", "timestamp", "message", "resourceId" only as more the indexing leads to more load on the read write operation of database.
 
 1. Go over to "http://127.0.0.1:3000/"
 2. Enter the Filter field and the Filter value and click Search.
 3. A Table will get populated below with the respective logs.
+
+
+## Features Implemented
+Log Ingestor:
+
+- Ingests logs over HTTP on port 3000. ("http://127.0.0.1:3000/ingest/")
+- Sends logs to RabbitMQ and stores in the queue and processes each log and stores in Mongodb Database.
+  
+Query Interface:
+
+- HTML template for user interaction.
+- Searching logs based on filters => (level, message, resourceId, timestamp etc)
+- Also implemented Date range search, regular expression search.
+- Additionally created a db_factory.py which resembles the factory pattern for selecting database for further operations. Due to time constraints couldn't implement that but the code is available in the repo.
+  
+Advanced Features (Bonus):
+
+- Date range search in Query Interface.
+  For date range search use Filter Field : dateRange  and  Filter value: (should be in the format) 2023-09-10T00:00:00Z and 2023-09-15T23:59:59Z.
+  For this filter I have converted the date to unix timestamp before storing in database as those formats provide faster operations instead of UTC formats.
+- Regular expression search in Query Interface.
+
+
+## Evaluation Criteria Met
+1. **Volume**: Handles massive log volumes efficiently with the help of LavinMQ(aka RabbitMQ) which can provide a throughput of about 1,000,000 messages/sec.
+2. **Speed**: Provides quick search results as the data is indexed.
+3. **Scalability**: Adaptable to increasing log volumes and queries.
+4. **Usability**: Offers an intuitive and user friendly interface.
+5. **Advanced Features**: Implemented bonus functionalities.
+6. **Readability**: Maintained a clean and structured codebase.
 
 
 <!-- LICENSE -->
