@@ -32,13 +32,12 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Log Ingestor and Query Interface</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    Develop a log ingestor system that can efficiently handle vast volumes of log data, and offer a simple interface for querying this data using full-text search or specific field filters.
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
@@ -70,9 +69,10 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#Usage">Usage</a></li>
+    <li><a href="#Features Implemented">Roadmap</a></li>
+	  <li><a href="#Evaluation Criteria Met">Roadmap</a></li>
+    <li><a href="#Identified Issue">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -84,18 +84,26 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Developed a log ingestor system that can efficiently handle vast volumes of log data, and offer a simple interface for querying this data using full-text search or specific field filters.
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+The logs should be ingested (in the log ingestor) over HTTP, on port `3000`.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+The logs to be ingested will be sent in this format.
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+```json
+{
+	"level": "error",
+	"message": "Failed to connect to DB",
+  "resourceId": "server-1234",
+	"timestamp": "2023-09-15T08:00:00Z",
+	"traceId": "abc-xyz-123",
+  "spanId": "span-456",
+  "commit": "5e5342f",
+  "metadata": {
+      "parentResourceId": "server-0987"
+    }
+}
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -103,101 +111,106 @@ Use the `BLANK_README.md` to get started.
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+The project is built using FastAPI, MongoDB and RabbitMQ
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To setup this project the below mwntioned steps need to be followed.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+* Python should be installed
   ```sh
-  npm install npm@latest -g
+  python --version
   ```
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/dyte-submissions/november-2023-hiring-tawheed78.git
    ```
-3. Install NPM packages
+2. Go to directory
    ```sh
-   npm install
+   cd november-2023-hiring-tawheed78
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Setup virtual environment
+   ```sh
+   py -m venv venv
+   venv/Scripts/activate
+   ```
+4. Install requirements.txt
+   ```sh
+   pip install -r requirements.txt
+   ```
+5. Start the main server that ingests logs in one terminal
+   ```sh
+    uvicorn main:app --host 127.0.0.1 --port 3000 --reload 
+   ```
+6. Start the consumer server in another terminal that consumes the messages received from RabbitMQ
+   ```sh
+    python consumer.py
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+### Log Ingestor
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+The Log Ingestor uses FastAPI to ingest logs via POST request. The Logs are sent to RabbitMQ and then processed from there one by one and added into Mongodb database.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+1. Send a POST request with the log data to "http://127.0.0.1:3000/ingest/"
 
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+2. You will receive a message in the consumer terminal mentioning
+   ```json
+	[✅] Received: {'level': 'error', 'message': 'Failed to connect to DB', 'resourceId': 'server-1234', 'timestamp': 1694764800, 'traceId': 'abc-xyz-123', 'spanId': 'span-456', 'commit': '5e5342f', 'metadata': {'parentResourceId': 'server-0987'}}
+   ```
+3. At the same time the log has been added to the Mongodb Database.
 
 
+### Query Interface
 
-<!-- CONTRIBUTING -->
-## Contributing
+The Query Interface uses HTML template to take the input values, "Filter Field" and "Filter Value". On submitting the response the data is fetched from the Mongodb Database and presented in a table just below the input form. Additionally indexing has been done on the fields "level", "timestamp", "message", "resourceId" only as more the indexing leads to more load on the read write operation of database.
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+1. Go over to "http://127.0.0.1:3000/"
+2. Enter the Filter field and the Filter value and click Search.
+3. A Table will get populated below with the respective logs.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## Features Implemented
+Log Ingestor:
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+- Ingests logs over HTTP on port 3000. ("http://127.0.0.1:3000/ingest/")
+- Sends logs to RabbitMQ and stores in the queue and processes each log and stores in Mongodb Database.
+  
+Query Interface:
 
+- HTML template for user interaction.
+- Searching logs based on filters => (level, message, resourceId, timestamp etc)
+- Also implemented Date range search, regular expression search.
+- Additionally created a db_factory.py which resembles the factory pattern for selecting database for further operations. Due to time constraints couldn't implement that but the code is available in the repo.
+  
+Advanced Features (Bonus):
+
+- Date range search in Query Interface.
+  For date range search use Filter Field : dateRange  and  Filter value: (should be in the format) 2023-09-10T00:00:00Z and 2023-09-15T23:59:59Z.
+  For this filter I have converted the date to unix timestamp before storing in database as those formats provide faster operations instead of UTC formats.
+- Regular expression search in Query Interface.
+
+
+## Evaluation Criteria Met
+1. **Volume**: Handles massive log volumes efficiently with the help of LavinMQ(aka RabbitMQ) which can provide a throughput of about 1,000,000 messages/sec.
+2. **Speed**: Provides quick search results as the data is indexed.
+3. **Scalability**: Adaptable to increasing log volumes and queries.
+4. **Usability**: Offers an intuitive and user friendly interface.
+5. **Advanced Features**: Implemented bonus functionalities.
+6. **Readability**: Maintained a clean and structured codebase.
 
 
 <!-- LICENSE -->
@@ -212,7 +225,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Your Name - [@linked_profile](https://www.linkedin.com/in/tawheedchilwan78/) - tawheed.chilwan55@gmail.com
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
