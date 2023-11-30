@@ -132,11 +132,11 @@ To setup this project the below mwntioned steps need to be followed.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/dyte-submissions/november-2023-hiring-tawheed78.git
+   git clone https://github.com/tawheed78/Log-Ingestor-with-Query-Interface.git
    ```
 2. Go to directory
    ```sh
-   cd november-2023-hiring-tawheed78
+   cd Log-Ingestor-with-Query-Interface
    ```
 3. Setup virtual environment
    ```sh
