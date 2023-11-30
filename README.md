@@ -202,7 +202,7 @@ The Query Interface uses HTML template to take the input values, "Filter Field" 
 3. A Table will get populated below with the respective logs.
 
 ### Points to be Noted
-1. Since I have used cloud MongoDB and cloud RabbitMQ, I have provided the connection string and url of those instances in the .env file for testing purposes so that setting that up doesn't create any problems.
+1. Since I have used cloud MongoDB and cloud RabbitMQ, please enter your connection strings for MongoDB and url for RabbitMQ in the .env file so that setting that up doesn't create any problems.
 
    
 ## Features Implemented
